@@ -1,19 +1,19 @@
 version: '2'
 services:
   web:
-    image: dockercloud/hello-world
+    image: liatrio/hello-world
     ports:
-      - 8080
+      - 5000
     networks:
       - front-tier
       - back-tier
 
-  redis:
-    image: redis
-    links:
-      - web
-    networks:
-      - back-tier
+#  redis:
+#    image: redis
+#    links:
+#      - web
+#    networks:
+#      - back-tier
 
   lb:
     image: dockercloud/haproxy
@@ -31,4 +31,6 @@ networks:
   front-tier:
     driver: bridge
   back-tier:
-    driver: bridge
+    external:
+      name: redis
+#    driver: bridge
